@@ -11,11 +11,48 @@
     <header>
         <nav>
             <div class="logo">
-                <i class="fas fa-skull"></i>
+                <i class="fas fa-"></i>
+                <img src="./assets/logo.png" alt="BGMI Store Logo" class="logo-image">
                 <span>EVIL ID ADDA</span>
             </div>
         </nav>
+        <div class="header-actions">
+            <button class="accounts-button" onclick="showProductListPopup()">
+                <i class="fas fa-list"></i> Available Accounts
+            </button>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
+                <button class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
     </header>
+
+    <!-- Product List Popup -->
+    <div id="productListPopup" class="product-list-popup">
+        <div class="product-list-content">
+            <span class="close-popup">&times;</span>
+            <h2>Available Accounts</h2>
+            <div class="product-list">
+                <div class="product-list-item" data-product-id="1">
+                    <img src="./assets/images.jpg" alt="BGMI Account 1">
+                    <h3>PREMIUM BGMI ACCOUNT WITH RAVEN X-SUIT MAX & MCLAREN SPAWN</h3>
+                    <p class="price">₹29.99</p>
+                </div>
+                <div class="product-list-item" data-product-id="2">
+                    <img src="./assets/images2.jpg" alt="BGMI Account 2">
+                    <h3>PREMIUM PHAROH MAX WITH FOOL MAX WITH SUPER CARS</h3>
+                    <p class="price">₹39.99</p>
+                </div>
+                <div class="product-list-item" data-product-id="3">
+                    <img src="./assets/images1.jpg" alt="BGMI Account 3">
+                    <h3>PREMIUM BGMI ACCOUNT WITH SILVANUS XSUIT & BENTLEY SHOWROOM</h3>
+                    <p class="price">₹49.99</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main>
         <section class="products" id="products-container">

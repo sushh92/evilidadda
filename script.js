@@ -235,7 +235,7 @@ WATCH VIDEO FOR MORE INFO 📸
 💫 IGNIS XSUIT LVL 1 
 
 #RP_MYTHIC 
-💓 A1 TO A7 RP MAX 
+💓 A1 TO A7 RP MAX SHOWROOM
 💓 TOTAL MYTHIC 46/50
 
 #GUNLAB
@@ -301,6 +301,61 @@ WATCH VIDEO FOR MORE INFO 📸
 REST CHECK VIDEO 🎥
 
 🔐LOGIN - FB & TWITTER`
+    },
+    {
+        id: 4,
+        name: "GLACIER MAX WITH AKM DESERT LEVEL 4 WITH DOUBLE SUPERCARS",
+        price: 59.99,
+        images: [
+            "./assets/image5.jpg",
+            "./assets/image6.jpg"
+        ],
+        video: "./assets/video4.MP4",
+        description: `🇮🇳 BGMI PREMIUM ACCOUNT M416 GLACIER MAX + AKM DESERT LVL 4 + 5 PRIMARY KILL-FEED + DOUBLE SUPER CAR + DOUBLE CONQUER + OP INVENTORY 🤍 
+
+▫️ACCOUNT LVL 81/100
+▫️C2S4 & C3S7 CONQUER 
+▫️GOLDY BASIC VOICE PACK 
+▫️2 CAR SLOT OPEN 
+▫️FALCON OPEN 
+
+#UPGRADEBLE 
+🔫 M416 GLACIER MAX 
+🔫 AKM DESERT FOSSIL LVL 4 
+🔫 SCAR-L OPERATION LVL 4 
+🔫 UMP CARNIVAL LVL 4 
+🔫 KAR-98  KULKULKAN LVL 4
+🔫 UMP MARINE LVL 2 
+🔫 M762 STRAY REBELLION LVL 2 💥 2 MATERIAL AVAILABLE 
+💥 56 PAINTS AVAILABLE
+
+#OUTFITS
+👗 FIEND HUNTRESS SET 
+👗 CYCLE 2 SET 
+👗 CONTENDER SET 
+👗 CARNIVAL CELEBRATION SET 
+👗 CYCLE 4 SET 
+👗 MONEY BUSINESS SET 
+👗 CYCLE 5 SET 
+👗 OPERATION LEO SET 
+👗 CYCLE 7 SET
+👗 BLACK COMMANDER SET
+
+#SUPER_CARS 
+🏎️ LAMBORGHINI SVJ VERDE
+(GREEN COUPE) 
+🏎️ LAMBORGHINI URUS GIALLO 
+(YELLOW UAZ )
+
+🔺 HELMET & BACKPACK 🔺
+⛑️ PUBLING MYTHIC HELMET 
+⛑️ MAX DRIP HELMET 
+🎒 SAILING APE BACKPACK 
+🎒 CARDINAL RAIN BACKPACK
+
+WATCH VIDEO FOR MORE INFO  📸 
+
+🧷 LOGIN - TWITTER/GMAIL`
     }
 ];
 
@@ -309,7 +364,207 @@ const productsContainer = document.getElementById('products-container');
 
 // Display products
 function displayProducts() {
-    productsContainer.innerHTML = products.map(product => `
+    const container = document.getElementById('products-container');
+    container.innerHTML = '';
+    
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        
+        // Image gallery
+        const gallery = document.createElement('div');
+        gallery.className = 'image-gallery';
+        
+        // Main image
+        const mainImage = document.createElement('div');
+        mainImage.className = 'main-image';
+        
+        if (product.video) {
+            const video = document.createElement('video');
+            video.className = 'product-video';
+            video.controls = true;
+            video.preload = 'metadata';
+            video.playsInline = true;
+            
+            const source = document.createElement('source');
+            source.src = product.video;
+            source.type = 'video/mp4';
+            
+            video.appendChild(source);
+            mainImage.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            img.src = product.images[0];
+            img.alt = product.name;
+            img.className = 'product-image';
+            img.onclick = () => showImagePopup(img.src);
+            mainImage.appendChild(img);
+        }
+        
+        // Thumbnails
+        const thumbnails = document.createElement('div');
+        thumbnails.className = 'thumbnail-container';
+        
+        product.images.forEach((imgSrc, index) => {
+            const thumb = document.createElement('img');
+            thumb.src = imgSrc;
+            thumb.alt = product.name + ' view ' + (index + 1);
+            thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
+            thumb.onclick = () => {
+                changeMainImage(thumb, imgSrc);
+                showImagePopup(imgSrc); // Show popup when thumbnail is clicked
+            };
+            thumbnails.appendChild(thumb);
+        });
+        
+        gallery.appendChild(mainImage);
+        gallery.appendChild(thumbnails);
+        
+        // Product info
+        const info = document.createElement('div');
+        info.className = 'product-info';
+        
+        // Title
+        const title = document.createElement('h3');
+        title.className = 'product-title';
+        title.textContent = product.name;
+        
+        // Price
+        const price = document.createElement('p');
+        price.className = 'product-price';
+        price.textContent = '₹' + product.price.toFixed(2);
+        
+        // Description
+        const description = document.createElement('div');
+        description.className = 'product-description';
+        description.innerHTML = product.description.replace(/\n/g, '<br>');
+        
+        // WhatsApp link
+        const whatsappLink = document.createElement('a');
+        whatsappLink.href = 'https://wa.me/919667213967?text=' + encodeURIComponent('Hi, I\'m interested in ' + product.name + ' (₹' + product.price.toFixed(2) + '). Please provide more details.');
+        whatsappLink.className = 'whatsapp-link';
+        whatsappLink.target = '_blank';
+        whatsappLink.rel = 'noopener noreferrer';
+        whatsappLink.innerHTML = '<i class="fab fa-whatsapp"></i> Contact on WhatsApp';
+        
+        // Telegram link
+        const telegramLink = document.createElement('a');
+        telegramLink.href = 'https://t.me/evilpaanda';
+        telegramLink.className = 'telegram-link';
+        telegramLink.target = '_blank';
+        telegramLink.rel = 'noopener noreferrer';
+        telegramLink.innerHTML = '<i class="fab fa-telegram"></i> Contact on Telegram';
+        
+        info.appendChild(title);
+        info.appendChild(price);
+        info.appendChild(description);
+        info.appendChild(whatsappLink);
+        info.appendChild(telegramLink);
+        
+        card.appendChild(gallery);
+        card.appendChild(info);
+        container.appendChild(card);
+    });
+}
+
+// Function to change main image
+function changeMainImage(thumbnail, newSrc) {
+    const mainImage = thumbnail.parentElement.previousElementSibling.querySelector('img');
+    if (mainImage) {
+        mainImage.src = newSrc;
+        mainImage.onclick = () => showImagePopup(newSrc); // Add click handler to new main image
+    }
+    
+    // Update active thumbnail
+    thumbnail.parentElement.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    thumbnail.classList.add('active');
+}
+
+// Function to show image popup
+function showImagePopup(imageSrc) {
+    const modal = document.createElement('div');
+    modal.className = 'image-popup-modal';
+    
+    const closeBtn = document.createElement('span');
+    closeBtn.className = 'image-popup-close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.onclick = () => modal.remove();
+    
+    const img = document.createElement('img');
+    img.src = imageSrc;
+    img.className = 'image-popup-content';
+    
+    modal.appendChild(closeBtn);
+    modal.appendChild(img);
+    
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    };
+    
+    document.body.appendChild(modal);
+    modal.style.display = 'block';
+}
+
+// Initialize the page
+displayProducts();
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.querySelector('.search-button');
+
+function filterProducts(searchTerm) {
+    const filteredProducts = products.filter(product => {
+        const searchString = searchTerm.toLowerCase();
+        
+        // Check if the search term contains a price range
+        const priceRangeMatch = searchString.match(/(\d+)\s*-\s*(\d+)/);
+        if (priceRangeMatch) {
+            const minPrice = parseFloat(priceRangeMatch[1]);
+            const maxPrice = parseFloat(priceRangeMatch[2]);
+            return product.price >= minPrice && product.price <= maxPrice;
+        }
+        
+        // Check if the search term contains "under" or "below" with a price
+        const underPriceMatch = searchString.match(/(?:under|below)\s*(\d+)/);
+        if (underPriceMatch) {
+            const maxPrice = parseFloat(underPriceMatch[1]);
+            return product.price <= maxPrice;
+        }
+        
+        // Check if the search term contains "over" or "above" with a price
+        const overPriceMatch = searchString.match(/(?:over|above)\s*(\d+)/);
+        if (overPriceMatch) {
+            const minPrice = parseFloat(overPriceMatch[1]);
+            return product.price >= minPrice;
+        }
+        
+        // Regular search for text
+        return (
+            product.name.toLowerCase().includes(searchString) ||
+            product.description.toLowerCase().includes(searchString) ||
+            product.price.toString().includes(searchString)
+        );
+    });
+    
+    displayFilteredProducts(filteredProducts);
+}
+
+function displayFilteredProducts(filteredProducts) {
+    if (filteredProducts.length === 0) {
+        productsContainer.innerHTML = `
+            <div class="no-results">
+                <h2>No products found</h2>
+                <p>Try different keywords or check out all our products</p>
+            </div>
+        `;
+        return;
+    }
+
+    productsContainer.innerHTML = filteredProducts.map(product => `
         <div class="product-card">
             ${product.images ? `
                 <div class="image-gallery">
@@ -340,30 +595,45 @@ function displayProducts() {
                 <div class="product-description">
                     ${product.description.replace(/\n/g, '<br>')}
                 </div>
-                <a href="https://wa.me/917819893930?text=Hi%20I%20am%20interested%20in%20${encodeURIComponent(product.name)}%20for%20₹${product.price.toFixed(2)}" 
+                <a href="https://wa.me/919667213967?text=${encodeURIComponent(`Hi, I'm interested in ${product.name} (₹${product.price.toFixed(2)}). Please provide more details.`)}" 
                    class="whatsapp-link" 
                    target="_blank"
                    rel="noopener noreferrer">
                     <i class="fab fa-whatsapp"></i> Contact on WhatsApp
+                </a>
+                <a href="https://t.me/evilpaanda" 
+                   class="telegram-link" 
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <i class="fab fa-telegram"></i> Contact on Telegram
                 </a>
             </div>
         </div>
     `).join('');
 }
 
-// Function to change main image
-function changeMainImage(thumbnail, newSrc) {
-    const mainImage = thumbnail.parentElement.previousElementSibling.querySelector('img');
-    if (mainImage) {
-        mainImage.src = newSrc;
-    }
-    
-    // Update active thumbnail
-    thumbnail.parentElement.querySelectorAll('.thumbnail').forEach(thumb => {
-        thumb.classList.remove('active');
-    });
-    thumbnail.classList.add('active');
-}
+// Search event listeners
+searchButton.addEventListener('click', () => {
+    filterProducts(searchInput.value);
+});
 
-// Initialize the page
-displayProducts(); 
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        filterProducts(searchInput.value);
+    }
+});
+
+// Real-time search as user types
+searchInput.addEventListener('input', () => {
+    filterProducts(searchInput.value);
+});
+
+// Update the search input placeholder to show price range examples
+searchInput.placeholder = "Search products... (e.g., 'under 30', '20-40', 'over 50')";
+
+// Add click event listeners to all product images
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('product-image')) {
+        showImagePopup(e.target.src);
+    }
+}); 
